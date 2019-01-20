@@ -4250,6 +4250,11 @@ in-publish@^2.0.0:
   resolved "https://registry.yarnpkg.com/in-publish/-/in-publish-2.0.0.tgz#e20ff5e3a2afc2690320b6dc552682a9c7fadf51"
   integrity sha1-4g/146KvwmkDILbcVSaCqcf631E=
 
+include-media@^1.4.9:
+  version "1.4.9"
+  resolved "https://registry.yarnpkg.com/include-media/-/include-media-1.4.9.tgz#d0020b7be3eb2d54868a20943595ce380e0bc43b"
+  integrity sha1-0AILe+PrLVSGiiCUNZXOOA4LxDs=
+
 indent-string@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-2.1.0.tgz#8e2d48348742121b4a8218b7a137e9a52049dc80"
@@ -8103,6 +8108,11 @@ uuid@^3.0.1, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
+
+v-click-outside@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/v-click-outside/-/v-click-outside-2.0.2.tgz#7312e80ef72b979ff5144a08f36ebab24b5a2f8b"
+  integrity sha512-4dDekJloLi7WbVUM6IC/Gdv8qYaE+a2LY3sLUkzJc2WBf92kL0VPHGCTxVkTzZjHLVdkcjX0haiLXofrhZfHXA==
 
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
