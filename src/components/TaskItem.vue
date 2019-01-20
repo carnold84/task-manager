@@ -27,6 +27,8 @@
         v-else
         v-on:click="onBeginEdit"
       >{{task.text}}</p>
+      <p class="date">{{created}}</p>
+      <p class="date">{{modified}}</p>
       <div class="controls-right">
         <UiButton :onClick="onDelete">Remove</UiButton>
       </div>
@@ -59,6 +61,8 @@
 </template>
 
 <script>
+import format from 'date-fns/format';
+
 import TaskItem from '@/components/TaskItem.vue';
 import TextField from '@/components/TextField.vue';
 import UiButton from '@/components/UiButton.vue';
@@ -71,6 +75,12 @@ export default {
     UiButton,
   },
   computed: {
+    created () {
+      return `Created: ${format(this.task.created, 'DD/MM/YYYY')}`;
+    },
+    modified () {
+      return `Modified: ${format(this.task.modified, 'DD/MM/YYYY')}`;
+    },
     subTaskTextLabel () {
       return `Add Task to ${this.task.text}`;
     },
@@ -153,6 +163,9 @@ export default {
   height: 100%;
   margin: 0;
   padding: 0 20px;
+}
+.date {
+  padding: 0 10px;
 }
 .edit-task-form {
   flex-grow: 1;

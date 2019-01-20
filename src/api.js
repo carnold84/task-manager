@@ -14,9 +14,13 @@ const api = {
   addTask (payload) {
     let data = getData();
 
+    const date = Date.now();
+
     const task = {
       ...payload,
+      created: date,
       id: uuidV4(),
+      modified: date,
     };
 
     data.tasks.push(task);
@@ -30,9 +34,11 @@ const api = {
 
     const idx = _findIndex(data.tasks, task => task.id === payload.id);
     let task = data.tasks[idx];
+
     task = {
       ...task,
       ...payload,
+      modified: Date.now(),
     };
     data.tasks[idx] = task;
 
