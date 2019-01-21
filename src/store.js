@@ -25,7 +25,7 @@ export default new Vuex.Store({
     },
     removeTask (state, payload) {
       state.tasks = state.tasks.filter(task => {
-        return task.id !== payload.id;
+        return task.id !== payload.id && task.parentId !== payload.id;
       });
     },
   },

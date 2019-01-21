@@ -68,7 +68,7 @@ const api = {
     let newData = {
       ...data,
       tasks: data.tasks.filter(task => {
-        return task.id !== payload.id;
+        return task.id !== payload.id && task.parentId !== payload.id;
       }),
     };
 

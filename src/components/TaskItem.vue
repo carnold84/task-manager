@@ -1,14 +1,22 @@
 <template>
   <div
-    class="task-item"
+    :class="{'task-item': true, 'is-checked': task.checked}"
     ref="taskRoot"
+    v-on:mouseout="onMouseOut"
+    v-on:mouseover="onMouseOver"
   >
     <div class="content">
-      <div
-        class="controls-left"
-        v-if="subTasks !== undefined"
-      >
-        <UiButton :onClick="onToggleOpen">+</UiButton>
+      <div class="controls-left">
+        <UiButton
+          :onClick="onToggleOpen"
+          v-if="subTasks !== undefined"
+        >+</UiButton>
+        <span
+          class="checkbox"
+          v-on:click="onToggleCheck"
+        >
+          <span class="inner" />
+        </span>
       </div>
       <form
         class="edit-task-form"
@@ -29,7 +37,7 @@
       >{{task.text}}</p>
       <p class="date">{{created}}</p>
       <p class="date">{{modified}}</p>
-      <div class="controls-right">
+      <div :class="{'controls-right': true, 'show': showControls}">
         <UiButton :onClick="onDelete">Remove</UiButton>
       </div>
     </div>
@@ -89,6 +97,7 @@ export default {
     return {
       isVisible: false,
       isEditing: false,
+      showControls: false,
     };
   },
   methods: {
@@ -112,6 +121,15 @@ export default {
       const value = evt.target.querySelector('[name="edit-task"]').value;
       this.$store.dispatch('editTask', { id: this.task.id, text: value });
       this.isEditing = false;
+    },
+    onMouseOut () {
+      this.showControls = false;
+    },
+    onMouseOver () {
+      this.showControls = true;
+    },
+    onToggleCheck () {
+      this.$store.dispatch('editTask', { id: this.task.id, checked: !this.task.checked });
     },
     onToggleOpen () {
       this.isVisible = !this.isVisible;
@@ -154,6 +172,28 @@ export default {
   margin: 0;
   width: 100%;
 }
+.checkbox {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin: 0 0 0 10px;
+  width: 50px;
+
+  .inner {
+    border: 1px solid #cccccc;
+    border-radius: 9px;
+    height: 18px;
+    width: 18px;
+  }
+
+  .is-checked & {
+    .inner {
+      background-color: #1e70ce;
+      border: 1px solid #1e70ce;
+    }
+  }
+}
 .text {
   align-items: center;
   display: flex;
@@ -161,11 +201,15 @@ export default {
   font-family: var(--font-family-primary);
   font-size: 14px;
   height: 100%;
-  margin: 0;
-  padding: 0 20px;
+
+  .is-checked & {
+    color: #888888;
+    text-decoration: line-through;
+  }
 }
 .date {
-  padding: 0 10px;
+  color: #888888;
+  padding: 0 20px;
 }
 .edit-task-form {
   flex-grow: 1;
@@ -194,14 +238,23 @@ export default {
   width: 100%;
 }
 .controls-right {
+  align-items: center;
   display: flex;
+  height: 100%;
+  visibility: hidden;
+
+  &.show {
+    visibility: visible;
+  }
 
   & > * {
     margin: 0 0 0 10px;
   }
 }
 .controls-left {
+  align-items: center;
   display: flex;
+  height: 100%;
   margin: 0 10px 0 0;
 }
 h1 {
