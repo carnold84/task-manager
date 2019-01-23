@@ -1,11 +1,11 @@
 <template>
   <div
-    :class="{'task-item': true, 'is-checked': task.checked}"
+    :class="{'task-item': true, 'is-checked': task.checked, 'is-open': isOpen}"
     ref="taskRoot"
     v-on:mouseout="onMouseOut"
     v-on:mouseover="onMouseOver"
   >
-    <div class="content">
+    <div class="main">
       <div class="controls-left">
         <UiButton
           :onClick="onToggleOpen"
@@ -42,27 +42,29 @@
       </div>
     </div>
     <div
-      class="sub-tasks-container"
-      v-if="isVisible && subTasks !== undefined"
+      class="content"
+      v-if="subTasks !== undefined"
     >
-      <form
-        class="add-task-form"
-        v-on:submit.prevent="onAddSubTask"
-      >
-        <text-field
-          :label="subTaskTextLabel"
-          name="add-sub-task"
-        ></text-field>
-        <div class="button-container">
-          <ui-button>Save</ui-button>
+      <div class="content-inner">
+        <form
+          class="add-task-form"
+          v-on:submit.prevent="onAddSubTask"
+        >
+          <text-field
+            :label="subTaskTextLabel"
+            name="add-sub-task"
+          ></text-field>
+          <div class="button-container">
+            <ui-button>Save</ui-button>
+          </div>
+        </form>
+        <div class="sub-tasks">
+          <task-item
+            v-for="subTask in subTasks"
+            :key="subTask.id"
+            :task="subTask"
+          />
         </div>
-      </form>
-      <div class="sub-tasks">
-        <task-item
-          v-for="subTask in subTasks"
-          :key="subTask.id"
-          :task="subTask"
-        />
       </div>
     </div>
   </div>
@@ -95,7 +97,7 @@ export default {
   },
   data () {
     return {
-      isVisible: false,
+      isOpen: false,
       isEditing: false,
       showControls: false,
     };
@@ -132,7 +134,7 @@ export default {
       this.$store.dispatch('editTask', { id: this.task.id, checked: !this.task.checked });
     },
     onToggleOpen () {
-      this.isVisible = !this.isVisible;
+      this.isOpen = !this.isOpen;
     },
   },
   props: {
@@ -151,18 +153,22 @@ export default {
 
 <style lang="scss" scoped>
 .task-item {
-  border-bottom: #eeeeee solid 1px;
+  background-color: #ffffff;
+  border: #eeeeee solid 1px;
+  border-radius: 5px;
   flex-direction: column;
   flex-shrink: 0;
   display: flex;
-  margin: 0;
+  margin: 0 0 10px;
+  overflow: hidden;
+  padding: 0 10px;
   width: 100%;
 
   &:first-child {
     border-top: #eeeeee solid 1px;
   }
 }
-.content {
+.main {
   align-items: center;
   flex-direction: row;
   flex-shrink: 0;
@@ -230,9 +236,19 @@ export default {
 .button-container {
   margin: 0 0 0 20px;
 }
-.sub-tasks-container {
-  padding: 20px;
+.content {
+  height: 0;
+  opacity: 0;
+  transition: height 300ms ease, opacity 300ms ease;
   width: 100%;
+
+  .is-open & {
+    height: auto;
+    opacity: 1;
+  }
+}
+.content-inner {
+  padding: 20px;
 }
 .sub-tasks {
   width: 100%;

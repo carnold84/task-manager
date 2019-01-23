@@ -28,6 +28,7 @@ export default {
   margin: 0 0 5px;
 }
 .input {
+  background-color: transparent;
   width: 100%;
   font-size: 26px;
   line-height: 26px;

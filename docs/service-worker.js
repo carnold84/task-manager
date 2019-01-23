@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/task-manager/precache-manifest.eea19963952dcbb0f716cd5d622ae930.js"
+  "/task-manager/precache-manifest.1d261f1eb8d2d0aa2b07e2c1211c46c8.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "task-manager"});
