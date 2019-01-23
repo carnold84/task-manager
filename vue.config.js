@@ -3,6 +3,7 @@ module.exports = {
     ? '/task-manager/'
     : './',
   pwa: {
+    assetsVersion: '0.1',
     name: 'Task Manager',
     themeColor: '#1e70ce',
   },
