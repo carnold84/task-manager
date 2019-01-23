@@ -7,10 +7,13 @@
   >
     <div class="main">
       <div class="controls-left">
-        <UiButton
+        <icon-button
           :onClick="onToggleOpen"
           v-if="subTasks !== undefined"
-        >+</UiButton>
+        >
+          <drop-arrow-up-icon v-if="isOpen" />
+          <drop-arrow-down-icon v-else />
+        </icon-button>
         <span
           class="checkbox"
           v-on:click="onToggleCheck"
@@ -38,7 +41,9 @@
       <p class="date">{{created}}</p>
       <p class="date">{{modified}}</p>
       <div :class="{'controls-right': true, 'show': showControls}">
-        <UiButton :onClick="onDelete">Remove</UiButton>
+        <icon-button :onClick="onDelete">
+          <delete-icon />
+        </icon-button>
       </div>
     </div>
     <div
@@ -73,6 +78,10 @@
 <script>
 import format from 'date-fns/format';
 
+import DropArrowDownIcon from '@/components/icons/DropArrowDown.vue';
+import DropArrowUpIcon from '@/components/icons/DropArrowUp.vue';
+import DeleteIcon from '@/components/icons/Delete.vue';
+import IconButton from '@/components/IconButton.vue';
 import TaskItem from '@/components/TaskItem.vue';
 import TextField from '@/components/TextField.vue';
 import UiButton from '@/components/UiButton.vue';
@@ -80,6 +89,10 @@ import UiButton from '@/components/UiButton.vue';
 export default {
   name: 'TaskItem',
   components: {
+    DeleteIcon,
+    DropArrowDownIcon,
+    DropArrowUpIcon,
+    IconButton,
     TaskItem,
     TextField,
     UiButton,
@@ -206,6 +219,7 @@ export default {
   flex-grow: 1;
   font-family: var(--font-family-primary);
   font-size: 14px;
+  font-weight: 700;
   height: 100%;
 
   .is-checked & {

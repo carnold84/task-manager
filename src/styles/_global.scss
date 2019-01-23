@@ -34,19 +34,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
     overflow: hidden;
   }
-  .svg-icon {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    color: inherit;
-    vertical-align: middle;
-    fill: none;
-    stroke: currentColor;
-  }
-  .svg-fill {
-    fill: currentColor;
-    stroke: none;
-  }
   .anim-section {
     opacity: 0;
     transform: translate3d(0, 50px, 0);
