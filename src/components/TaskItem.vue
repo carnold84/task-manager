@@ -1,19 +1,12 @@
 <template>
   <div
-    :class="{'task-item': true, 'is-checked': task.checked, 'is-open': isOpen}"
+    :class="{'task-item': true, 'is-checked': task.checked, 'is-hovered': isHovered}"
     ref="taskRoot"
     v-on:mouseout="onMouseOut"
     v-on:mouseover="onMouseOver"
   >
     <div class="main">
       <div class="controls-left">
-        <icon-button
-          :onClick="onToggleOpen"
-          v-if="subTasks !== undefined"
-        >
-          <drop-arrow-up-icon v-if="isOpen" />
-          <drop-arrow-down-icon v-else />
-        </icon-button>
         <span
           class="checkbox"
           v-on:click="onToggleCheck"
@@ -21,55 +14,14 @@
           <span class="inner" />
         </span>
       </div>
-      <form
-        class="edit-task-form"
-        v-click-outside="onClickOutside"
-        v-if="isEditing"
-        v-on:submit.prevent="onEditTask"
-      >
-        <input
-          class="edit-text"
-          name="edit-task"
-          :value="task.text"
-        />
-      </form>
-      <p
+      <router-link
         class="text"
-        v-else
-        v-on:click="onBeginEdit"
-      >{{task.text}}</p>
-      <p class="date">{{created}}</p>
-      <p class="date">{{modified}}</p>
-      <div :class="{'controls-right': true, 'show': showControls}">
+        :to="link"
+      >{{task.text}}</router-link>
+      <div class="controls-right">
         <icon-button :onClick="onDelete">
           <delete-icon />
         </icon-button>
-      </div>
-    </div>
-    <div
-      class="content"
-      v-if="subTasks !== undefined"
-    >
-      <div class="content-inner">
-        <form
-          class="add-task-form"
-          v-on:submit.prevent="onAddSubTask"
-        >
-          <text-field
-            :label="subTaskTextLabel"
-            name="add-sub-task"
-          ></text-field>
-          <div class="button-container">
-            <ui-button>Save</ui-button>
-          </div>
-        </form>
-        <div class="sub-tasks">
-          <task-item
-            v-for="subTask in subTasks"
-            :key="subTask.id"
-            :task="subTask"
-          />
-        </div>
       </div>
     </div>
   </div>
@@ -78,24 +30,14 @@
 <script>
 import format from 'date-fns/format';
 
-import DropArrowDownIcon from '@/components/icons/DropArrowDown.vue';
-import DropArrowUpIcon from '@/components/icons/DropArrowUp.vue';
 import DeleteIcon from '@/components/icons/Delete.vue';
 import IconButton from '@/components/IconButton.vue';
-import TaskItem from '@/components/TaskItem.vue';
-import TextField from '@/components/TextField.vue';
-import UiButton from '@/components/UiButton.vue';
 
 export default {
   name: 'TaskItem',
   components: {
     DeleteIcon,
-    DropArrowDownIcon,
-    DropArrowUpIcon,
     IconButton,
-    TaskItem,
-    TextField,
-    UiButton,
   },
   computed: {
     created () {
@@ -104,59 +46,30 @@ export default {
     modified () {
       return `Modified: ${format(this.task.modified, 'DD/MM/YYYY')}`;
     },
-    subTaskTextLabel () {
-      return `Add Task to ${this.task.text}`;
+    link () {
+      return `/${this.task.id}`;
     },
   },
   data () {
     return {
-      isOpen: false,
-      isEditing: false,
-      showControls: false,
+      isHovered: false,
     };
   },
   methods: {
-    onAddSubTask (evt) {
-      const value = evt.target.querySelector('[name="add-sub-task"]').value;
-      this.$store.dispatch('addTask', { parentId: this.task.id, text: value });
-    },
-    onBeginEdit (evt) {
-      this.isEditing = true;
-      setTimeout(() => {
-        this.$refs.taskRoot.querySelector('[name="edit-task"').focus();
-      }, 100);
-    },
-    onClickOutside (event, el) {
-      this.isEditing = false;
-    },
     onDelete (evt) {
       this.$store.dispatch('removeTask', { id: this.task.id });
     },
-    onEditTask (evt) {
-      const value = evt.target.querySelector('[name="edit-task"]').value;
-      this.$store.dispatch('editTask', { id: this.task.id, text: value });
-      this.isEditing = false;
+    onMouseOver () {
+      this.isHovered = true;
     },
     onMouseOut () {
-      this.showControls = false;
-    },
-    onMouseOver () {
-      this.showControls = true;
+      this.isHovered = false;
     },
     onToggleCheck () {
       this.$store.dispatch('editTask', { id: this.task.id, checked: !this.task.checked });
     },
-    onToggleOpen () {
-      this.isOpen = !this.isOpen;
-    },
   },
   props: {
-    subTasks: {
-      type: Array,
-      default () {
-        return undefined;
-      },
-    },
     task: {
       type: Object,
     },
@@ -166,37 +79,40 @@ export default {
 
 <style lang="scss" scoped>
 .task-item {
-  background-color: #ffffff;
-  border: #eeeeee solid 1px;
-  border-radius: 5px;
+  border-bottom: #eeeeee solid 1px;
   flex-direction: column;
   flex-shrink: 0;
   display: flex;
-  margin: 0 0 10px;
+  margin: 0;
   overflow: hidden;
-  padding: 0 10px;
+  padding: 0;
   width: 100%;
 
   &:first-child {
     border-top: #eeeeee solid 1px;
   }
+
+  &:hover {
+    background-color: #f9f9f9;
+  }
 }
+
 .main {
   align-items: center;
   flex-direction: row;
   flex-shrink: 0;
   display: flex;
-  height: 50px;
   justify-content: space-between;
   margin: 0;
   width: 100%;
 }
+
 .checkbox {
   align-items: center;
   display: flex;
   height: 100%;
   justify-content: center;
-  margin: 0 0 0 10px;
+  margin: 0;
   width: 50px;
 
   .inner {
@@ -213,67 +129,37 @@ export default {
     }
   }
 }
+
 .text {
   align-items: center;
+  color: #222222;
   display: flex;
   flex-grow: 1;
   font-family: var(--font-family-primary);
   font-size: 14px;
   font-weight: 700;
   height: 100%;
+  margin: 0;
+  line-height: 20px;
+  padding: 18px 0;
 
   .is-checked & {
     color: #888888;
     text-decoration: line-through;
   }
-}
-.date {
-  color: #888888;
-  padding: 0 20px;
-}
-.edit-task-form {
-  flex-grow: 1;
-  height: 100%;
-}
-.edit-text {
-  font-family: var(--font-family-primary);
-  font-size: 14px;
-  height: 100%;
-  padding: 0 18px;
-  width: 100%;
-}
-.add-task-form {
-  align-items: center;
-  display: flex;
-  width: 100%;
-}
-.button-container {
-  margin: 0 0 0 20px;
-}
-.content {
-  height: 0;
-  opacity: 0;
-  transition: height 300ms ease, opacity 300ms ease;
-  width: 100%;
 
-  .is-open & {
-    height: auto;
-    opacity: 1;
+  &:hover {
+    color: #1e70ce;
   }
 }
-.content-inner {
-  padding: 20px;
-}
-.sub-tasks {
-  width: 100%;
-}
+
 .controls-right {
   align-items: center;
   display: flex;
   height: 100%;
   visibility: hidden;
 
-  &.show {
+  .is-hovered & {
     visibility: visible;
   }
 
@@ -281,21 +167,11 @@ export default {
     margin: 0 0 0 10px;
   }
 }
+
 .controls-left {
   align-items: center;
   display: flex;
   height: 100%;
   margin: 0 10px 0 0;
-}
-h1 {
-  font-size: 1.1em;
-  font-weight: normal;
-  color: #ffffff;
-  margin: 0;
-}
-h2 {
-  font-size: 1.2em;
-  font-weight: normal;
-  margin: 0;
 }
 </style>

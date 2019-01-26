@@ -3,6 +3,9 @@
     <div class="content-left">
       <slot name="content-left"></slot>
     </div>
+    <div class="content-center">
+      <slot name="content-center"></slot>
+    </div>
     <div class="content-right">
       <slot name="content-right"></slot>
     </div>
@@ -21,20 +24,21 @@ export default {
 @import "node_modules/include-media/dist/_include-media.scss";
 
 .header-bar {
-  width: 100%;
-  height: 50px;
-  font-size: 1em;
-  color: #ffffff;
-  margin: 0;
-  padding: 0 40px;
+  align-items: center;
   background-color: var(--primary);
   border-bottom: var(--primary) solid 1px;
   box-shadow: rgba(0, 0, 0, 0.5) 0 1px 2px;
-  flex-shrink: 0;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
+  color: #ffffff;
   display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-size: 1em;
+  height: 60px;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0 40px;
+  width: 100%;
+  z-index: 10;
 }
 
 .logo {
@@ -42,6 +46,7 @@ export default {
 }
 
 .content-left,
+.content-center,
 .content-right {
   align-items: center;
   display: flex;
