@@ -44,11 +44,14 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    tasks: state => {
-      return state.tasks.filter(task => task.parentId === undefined);
-    },
     subTasks: state => id => {
       return state.tasks.filter(task => task.parentId === id);
+    },
+    task: state => id => {
+      return state.tasks.filter(task => task.id === id)[0];
+    },
+    tasks: state => {
+      return state.tasks.filter(task => task.parentId === undefined);
     },
   },
 });

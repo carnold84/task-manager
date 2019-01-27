@@ -1,22 +1,14 @@
 <template>
   <div id="app">
-    <header-bar>
-      <template slot="content-left">
-        <h1>Task Manager</h1>
-      </template>
-    </header-bar>
-    <router-view />
+    <router-view name="list" />
+    <router-view name="details" />
   </div>
 </template>
 
 <script>
-import HeaderBar from '@/components/HeaderBar.vue';
 
 export default {
   name: 'app',
-  components: {
-    HeaderBar,
-  },
 };
 </script>
 
@@ -24,6 +16,14 @@ export default {
 @import "styles/main.scss";
 
 #app {
-  background-color: #f6f6f6;
+  background-color: #ffffff;
+  color: var(--font-color-primary);
+  display: flex;
+  height: 100%;
+  font-family: var(--font-family-primary);
+  font-size: 15px;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
 }
 </style>

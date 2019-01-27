@@ -1,24 +1,34 @@
 <template>
   <div class="home">
+    <header-bar>
+      <template slot="content-left">
+        <h1>Task Manager</h1>
+      </template>
+    </header-bar>
     <div class="container">
-      <div class="content">
+      <div class="tasks">
         <form
           class="add-task-form"
           v-on:submit.prevent="onAddTask"
         >
-          <text-field
-            label="Add Task"
+          <label
+            class="label"
+            for="add-task"
+          >Add Task</label>
+          <input
+            class="input"
+            id="add-task"
             name="add-task"
-          ></text-field>
-          <div class="button-container">
-            <ui-button>Save</ui-button>
-          </div>
+          />
         </form>
         <div
-          class="no-tasks"
+          class="empty"
           v-if="tasks.length === 0"
         >No Tasks</div>
-        <div v-else>
+        <div
+          class="tasks-content"
+          v-else
+        >
           <task-item
             v-for="task in tasks"
             :has-border="true"
@@ -28,26 +38,53 @@
           />
         </div>
       </div>
+      <div class="task-details">
+        <div
+          class="empty"
+          v-if="selectedTask === null"
+        >No task is selected</div>
+        <div
+          class="task-details-content"
+          v-else
+        >
+          <form
+            class="edit-task-form"
+            v-click-outside="onClickOutside"
+            v-if="isEditing"
+            v-on:submit.prevent="onEditTask"
+          >
+            <input
+              class="edit-text"
+              name="edit-task"
+              :value="task.text"
+            />
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import HeaderBar from '@/components/HeaderBar.vue';
 import TaskItem from '@/components/TaskItem.vue';
-import TextField from '@/components/TextField.vue';
-import UiButton from '@/components/UiButton.vue';
 
 export default {
   name: 'home',
   components: {
+    HeaderBar,
     TaskItem,
-    TextField,
-    UiButton,
   },
   computed: {
     tasks () {
       return this.$store.getters.tasks;
     },
+  },
+  data () {
+    console.log(this.$route.params.id);
+    return {
+      selectedTask: null,
+    };
   },
   methods: {
     getSubTasks (id) {
@@ -55,37 +92,89 @@ export default {
     },
     onAddTask (evt) {
       evt.preventDefault();
-      const value = evt.target.querySelector('[name="add-task"]').value;
+      const target = evt.target.querySelector('[name="add-task"]');
+      const value = target.value;
       this.$store.dispatch('addTask', { text: value });
+      target.value = '';
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.add-task-form {
-  align-items: center;
+.home {
   display: flex;
-  width: 100%;
+  flex-direction: column;
+  flex-grow: 1;
 }
-.button-container {
-  margin: 0 0 0 20px;
-}
+
 .container {
   display: flex;
-  height: 100%;
-  justify-content: center;
-  padding: 30px 40px;
-  width: 100%;
+  flex-grow: 1;
+  z-index: 0;
 }
-.content {
-  max-width: var(--max-width);
-  width: 100%;
+
+.tasks {
+  border-right: 1px solid #eeeeee;
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  overflow: auto;
+  width: 30%;
 }
-.no-tasks {
+
+.task-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.tasks-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+.empty {
   align-items: center;
   display: flex;
   flex-grow: 1;
   justify-content: center;
+}
+
+.add-task-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+}
+
+.label {
+  color: #666666;
+  margin: 0 0 5px 0;
+}
+
+.input {
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 3px;
+  color: #222222;
+  height: 46px;
+  padding: 0 14px;
+
+  &:focus {
+    border: 1px solid #cccccc;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #a7bcd5;
+  }
+}
+
+.content {
+  max-width: var(--max-width);
+  width: 100%;
 }
 </style>
