@@ -9,6 +9,9 @@
 
 export default {
   name: 'app',
+  mounted () {
+    this.$store.dispatch('init');
+  },
 };
 </script>
 

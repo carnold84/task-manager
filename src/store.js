@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    ...api.init(),
+    tasks: [],
   },
   mutations: {
     addTask: (state, payload) => {
@@ -28,18 +28,25 @@ export default new Vuex.Store({
         return task.id !== payload.id && task.parentId !== payload.id;
       });
     },
+    init (state, payload) {
+      state.tasks = payload.tasks;
+    },
   },
   actions: {
-    addTask (context, payload) {
-      const task = api.addTask(payload);
+    async addTask (context, payload) {
+      const task = await api.addTask(payload);
       context.commit('addTask', task);
     },
-    editTask (context, payload) {
-      const task = api.editTask(payload);
+    async editTask (context, payload) {
+      const task = await api.editTask(payload);
       context.commit('editTask', task);
     },
-    removeTask (context, payload) {
-      api.removeTask(payload);
+    async init (context) {
+      const data = await api.init();
+      context.commit('init', data);
+    },
+    async removeTask (context, payload) {
+      await api.removeTask(payload);
       context.commit('removeTask', payload);
     },
   },
