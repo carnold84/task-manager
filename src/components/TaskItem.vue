@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{'task-item': true, 'is-checked': task.checked, 'is-hovered': isHovered}"
+    :class="{'task-item': true, 'is-checked': task.checked, 'is-hovered': isHovered, 'is-selected': isSelected}"
     ref="taskRoot"
     v-on:mouseout="onMouseOut"
     v-on:mouseover="onMouseOver"
@@ -70,6 +70,10 @@ export default {
     },
   },
   props: {
+    isSelected: {
+      type: Boolean,
+      default: false,
+    },
     task: {
       type: Object,
     },
@@ -80,6 +84,7 @@ export default {
 <style lang="scss" scoped>
 .task-item {
   border-bottom: #eeeeee solid 1px;
+  border-left: 3px solid transparent;
   flex-direction: column;
   flex-shrink: 0;
   display: flex;
@@ -94,6 +99,14 @@ export default {
 
   &:hover {
     background-color: #f9f9f9;
+  }
+
+  &.is-selected {
+    border-left: 3px solid var(--primary);
+
+    a {
+      color: var(--primary);
+    }
   }
 }
 
@@ -156,6 +169,7 @@ export default {
 .controls-right {
   align-items: center;
   display: flex;
+  fill: #999999;
   height: 100%;
   visibility: hidden;
 
@@ -165,6 +179,10 @@ export default {
 
   & > * {
     margin: 0 0 0 10px;
+  }
+
+  .is-selected & {
+    fill: #ffffff;
   }
 }
 

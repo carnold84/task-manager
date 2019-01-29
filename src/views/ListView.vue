@@ -22,6 +22,7 @@
       <task-item
         v-for="task in tasks"
         :has-border="true"
+        :isSelected="selectedId === task.id"
         :key="task.id"
         :task="task"
       />
@@ -38,6 +39,9 @@ export default {
     TaskItem,
   },
   computed: {
+    selectedId () {
+      return this.$route.params.id;
+    },
     tasks () {
       return this.$store.getters.tasks;
     },
