@@ -53,19 +53,19 @@ const api = {
     return task;
   },
   async editTask (payload) {
-    let data = await getTasks();
+    let tasks = await getTasks();
 
-    const idx = _findIndex(data.tasks, task => task.id === payload.id);
-    let task = data.tasks[idx];
+    const idx = _findIndex(tasks, task => task.id === payload.id);
+    let task = tasks[idx];
 
     task = {
       ...task,
       ...payload,
       modified: Date.now(),
     };
-    data.tasks[idx] = task;
+    tasks[idx] = task;
 
-    await setTasks(data);
+    await setTasks(tasks);
 
     return task;
   },

@@ -24,6 +24,7 @@
         :has-border="true"
         :isSelected="selectedId === task.id"
         :key="task.id"
+        :link="getTaskLink(task)"
         :task="task"
       />
     </div>
@@ -47,6 +48,9 @@ export default {
     },
   },
   methods: {
+    getTaskLink (task) {
+      return `/${task.id}`;
+    },
     onAddTask (evt) {
       evt.preventDefault();
       const target = evt.target.querySelector('[name="add-task"]');
