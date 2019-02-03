@@ -34,6 +34,17 @@ const setTasks = async tasks => {
 };
 
 const api = {
+  async addData (payload) {
+    let tasks = await getTasks();
+
+    tasks.push(...payload.tasks);
+
+    console.log(tasks);
+
+    await setTasks(tasks);
+
+    return { tasks };
+  },
   async addTask (payload) {
     let tasks = await getTasks();
 
@@ -80,6 +91,11 @@ const api = {
     return {
       tasks,
     };
+  },
+  async removeAllTasks () {
+    setTasks([]);
+
+    return [];
   },
   async removeTask (payload) {
     let tasks = await getTasks();

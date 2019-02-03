@@ -36,7 +36,7 @@ export default {
   height: 60px;
   justify-content: space-between;
   margin: 0;
-  padding: 0 40px;
+  padding: 0 20px;
   width: 100%;
   z-index: 10;
 }

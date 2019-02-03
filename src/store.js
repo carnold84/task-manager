@@ -11,6 +11,10 @@ export default new Vuex.Store({
     tasks: [],
   },
   mutations: {
+    addData: (state, payload) => {
+      console.log(payload);
+      state.tasks = payload.tasks;
+    },
     addTask: (state, payload) => {
       state.tasks.push(payload);
     },
@@ -23,16 +27,23 @@ export default new Vuex.Store({
       };
       state.tasks.splice(idx, 1, task);
     },
+    init (state, payload) {
+      state.tasks = payload.tasks;
+    },
+    removeAllTasks (state, payload) {
+      state.tasks = payload.tasks;
+    },
     removeTask (state, payload) {
       state.tasks = state.tasks.filter(task => {
         return task.id !== payload.id && task.parentId !== payload.id;
       });
     },
-    init (state, payload) {
-      state.tasks = payload.tasks;
-    },
   },
   actions: {
+    async addData (context, payload) {
+      const data = await api.addData(payload);
+      context.commit('addData', data);
+    },
     async addTask (context, payload) {
       const task = await api.addTask(payload);
       context.commit('addTask', task);
@@ -49,8 +60,15 @@ export default new Vuex.Store({
       await api.removeTask(payload);
       context.commit('removeTask', payload);
     },
+    async removeAllTasks (context) {
+      const tasks = await api.removeAllTasks();
+      context.commit('removeAllTasks', { tasks });
+    },
   },
   getters: {
+    state: state => {
+      return state;
+    },
     subTasks: state => id => {
       return state.tasks.filter(task => task.parentId === id);
     },

@@ -33,7 +33,7 @@
       </form>
       <div class="controls-right">
         <icon-button :onClick="onDelete">
-          <delete-icon />
+          <v-icon>delete</v-icon>
         </icon-button>
       </div>
     </div>
@@ -43,13 +43,11 @@
 <script>
 import format from 'date-fns/format';
 
-import DeleteIcon from '@/components/icons/Delete.vue';
 import IconButton from '@/components/IconButton.vue';
 
 export default {
   name: 'TaskItem',
   components: {
-    DeleteIcon,
     IconButton,
   },
   computed: {
