@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{'task-item': true, 'is-checked': task.checked, 'is-hovered': isHovered}"
+    :class="{'task-item': true, 'is-checked': task.checked, 'is-hovered': isHovered, 'is-selected': isSelected}"
     ref="taskRoot"
     v-on:mouseout="onMouseOut"
     v-on:mouseover="onMouseOver"
@@ -17,10 +17,23 @@
       <router-link
         class="text"
         :to="link"
+        v-if="link"
       >{{task.text}}</router-link>
+      <form
+        class="edit-task-form"
+        v-else
+        v-on:blur="onEditTask"
+        v-on:submit.prevent="onEditTask"
+      >
+        <input
+          class="edit-task"
+          name="edit-task"
+          :value="task.text"
+        />
+      </form>
       <div class="controls-right">
         <icon-button :onClick="onDelete">
-          <delete-icon />
+          <v-icon>delete</v-icon>
         </icon-button>
       </div>
     </div>
@@ -30,13 +43,11 @@
 <script>
 import format from 'date-fns/format';
 
-import DeleteIcon from '@/components/icons/Delete.vue';
 import IconButton from '@/components/IconButton.vue';
 
 export default {
   name: 'TaskItem',
   components: {
-    DeleteIcon,
     IconButton,
   },
   computed: {
@@ -45,9 +56,6 @@ export default {
     },
     modified () {
       return `Modified: ${format(this.task.modified, 'DD/MM/YYYY')}`;
-    },
-    link () {
-      return `/${this.task.id}`;
     },
   },
   data () {
@@ -58,6 +66,13 @@ export default {
   methods: {
     onDelete (evt) {
       this.$store.dispatch('removeTask', { id: this.task.id });
+    },
+    onEditTask (evt) {
+      evt.preventDefault();
+      const target = evt.target.querySelector('[name="edit-task"]');
+      const value = target.value;
+      this.$store.dispatch('editTask', { id: this.task.id, text: value });
+      target.blur();
     },
     onMouseOver () {
       this.isHovered = true;
@@ -70,6 +85,13 @@ export default {
     },
   },
   props: {
+    isSelected: {
+      type: Boolean,
+      default: false,
+    },
+    link: {
+      type: String,
+    },
     task: {
       type: Object,
     },
@@ -80,6 +102,7 @@ export default {
 <style lang="scss" scoped>
 .task-item {
   border-bottom: #eeeeee solid 1px;
+  border-left: 3px solid transparent;
   flex-direction: column;
   flex-shrink: 0;
   display: flex;
@@ -94,6 +117,14 @@ export default {
 
   &:hover {
     background-color: #f9f9f9;
+  }
+
+  &.is-selected {
+    border-left: 3px solid var(--primary);
+
+    a {
+      color: var(--primary);
+    }
   }
 }
 
@@ -141,21 +172,49 @@ export default {
   height: 100%;
   margin: 0;
   line-height: 20px;
-  padding: 18px 0;
+  padding: 18px 10px;
+
+  .is-checked & {
+    color: #888888;
+    text-decoration: line-through;
+  }
+}
+
+.edit-task-form {
+  flex-grow: 1;
+}
+
+.edit-task {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: #222222;
+  display: flex;
+  flex-grow: 1;
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: 700;
+  height: 100%;
+  margin: 0;
+  line-height: 20px;
+  padding: 18px 10px;
+  width: 100%;
 
   .is-checked & {
     color: #888888;
     text-decoration: line-through;
   }
 
-  &:hover {
+  &:focus {
     color: #1e70ce;
+    outline: none;
   }
 }
 
 .controls-right {
   align-items: center;
   display: flex;
+  fill: #999999;
   height: 100%;
   visibility: hidden;
 
@@ -172,6 +231,5 @@ export default {
   align-items: center;
   display: flex;
   height: 100%;
-  margin: 0 10px 0 0;
 }
 </style>

@@ -8,9 +8,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    ...api.init(),
+    tasks: [],
   },
   mutations: {
+    addData: (state, payload) => {
+      console.log(payload);
+      state.tasks = payload.tasks;
+    },
     addTask: (state, payload) => {
       state.tasks.push(payload);
     },
@@ -23,6 +27,12 @@ export default new Vuex.Store({
       };
       state.tasks.splice(idx, 1, task);
     },
+    init (state, payload) {
+      state.tasks = payload.tasks;
+    },
+    removeAllTasks (state, payload) {
+      state.tasks = payload.tasks;
+    },
     removeTask (state, payload) {
       state.tasks = state.tasks.filter(task => {
         return task.id !== payload.id && task.parentId !== payload.id;
@@ -30,20 +40,35 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    addTask (context, payload) {
-      const task = api.addTask(payload);
+    async addData (context, payload) {
+      const data = await api.addData(payload);
+      context.commit('addData', data);
+    },
+    async addTask (context, payload) {
+      const task = await api.addTask(payload);
       context.commit('addTask', task);
     },
-    editTask (context, payload) {
-      const task = api.editTask(payload);
+    async editTask (context, payload) {
+      const task = await api.editTask(payload);
       context.commit('editTask', task);
     },
-    removeTask (context, payload) {
-      api.removeTask(payload);
+    async init (context) {
+      const data = await api.init();
+      context.commit('init', data);
+    },
+    async removeTask (context, payload) {
+      await api.removeTask(payload);
       context.commit('removeTask', payload);
+    },
+    async removeAllTasks (context) {
+      const tasks = await api.removeAllTasks();
+      context.commit('removeAllTasks', { tasks });
     },
   },
   getters: {
+    state: state => {
+      return state;
+    },
     subTasks: state => id => {
       return state.tasks.filter(task => task.parentId === id);
     },

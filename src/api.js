@@ -1,18 +1,52 @@
 import _findIndex from 'lodash/findIndex';
+import localforage from 'localforage';
 import uuidV4 from 'uuid/v4';
 
-const getData = () => {
-  let data = localStorage.getItem('task-manager');
-  return data ? JSON.parse(data) : null;
+localforage.config({
+  name: 'task-manager',
+  version: 1.0,
+  storeName: 'task_manager',
+});
+
+const getTasks = async () => {
+  let tasks = null;
+
+  await localforage.getItem('tasks', (err, value) => {
+    if (err) {
+      console.error(err);
+    }
+    tasks = value;
+  });
+
+  return tasks;
 };
 
-const setData = data => {
-  return localStorage.setItem('task-manager', JSON.stringify(data));
+const setTasks = async tasks => {
+  let success = true;
+
+  await localforage.setItem('tasks', tasks, (err) => {
+    if (err) {
+      success = false;
+    }
+  });
+
+  return success;
 };
 
 const api = {
-  addTask (payload) {
-    let data = getData();
+  async addData (payload) {
+    let tasks = await getTasks();
+
+    tasks.push(...payload.tasks);
+
+    console.log(tasks);
+
+    await setTasks(tasks);
+
+    return { tasks };
+  },
+  async addTask (payload) {
+    let tasks = await getTasks();
 
     const date = Date.now();
 
@@ -23,56 +57,54 @@ const api = {
       modified: date,
     };
 
-    data.tasks.push(task);
+    tasks.push(task);
 
-    setData(data);
+    await setTasks(tasks);
 
     return task;
   },
-  editTask (payload) {
-    let data = getData();
+  async editTask (payload) {
+    let tasks = await getTasks();
 
-    const idx = _findIndex(data.tasks, task => task.id === payload.id);
-    let task = data.tasks[idx];
+    const idx = _findIndex(tasks, task => task.id === payload.id);
+    let task = tasks[idx];
 
     task = {
       ...task,
       ...payload,
       modified: Date.now(),
     };
-    data.tasks[idx] = task;
+    tasks[idx] = task;
 
-    setData(data);
+    await setTasks(tasks);
 
     return task;
   },
-  getTasks: () => {
-    const data = getData();
-    return data.tasks;
-  },
-  init: () => {
-    let data = getData();
+  async init () {
+    let tasks = await getTasks();
 
-    if (data === null) {
-      data = {
-        tasks: [],
-      };
-      setData(data);
+    if (tasks === null) {
+      tasks = [];
+      await setTasks(tasks);
     }
 
-    return data;
-  },
-  removeTask (payload) {
-    let data = getData();
-
-    let newData = {
-      ...data,
-      tasks: data.tasks.filter(task => {
-        return task.id !== payload.id && task.parentId !== payload.id;
-      }),
+    return {
+      tasks,
     };
+  },
+  async removeAllTasks () {
+    setTasks([]);
 
-    setData(newData);
+    return [];
+  },
+  async removeTask (payload) {
+    let tasks = await getTasks();
+
+    let newTasks = tasks.filter(task => {
+      return task.id !== payload.id && task.parentId !== payload.id;
+    });
+
+    await setTasks(newTasks);
 
     return payload.id;
   },

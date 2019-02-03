@@ -54,7 +54,7 @@ export default {
   border: none;
   cursor: pointer;
   display: flex;
-  fill: var(--font-color-secondary);
+  fill: inherit;
   height: 100%;
   padding: 0 12px;
 
