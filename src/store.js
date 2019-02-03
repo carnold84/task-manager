@@ -12,7 +12,6 @@ export default new Vuex.Store({
   },
   mutations: {
     addData: (state, payload) => {
-      console.log(payload);
       state.tasks = payload.tasks;
     },
     addTask: (state, payload) => {
