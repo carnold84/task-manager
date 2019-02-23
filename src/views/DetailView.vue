@@ -1,6 +1,6 @@
 <template>
   <div
-    class="detail-view"
+    :class="{'detail-view': true, 'is-open': isOpen}"
     v-if="task"
   >
     <form
@@ -69,8 +69,9 @@ export default {
     },
   },
   data () {
+    const id = this.$route.params.id;
     return {
-      isEditing: false,
+      isOpen: id !== undefined,
     };
   },
   methods: {
@@ -99,6 +100,23 @@ export default {
   flex-grow: 1;
   overflow: auto;
   padding: 20px;
+  //transition: transform 3000ms ease;
+
+  @media (max-device-width: 1024px) {
+    background-color: #ffffff;
+    height: 100%;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    //transform: translate3d(100%, 0, 0);
+    width: 100%;
+    z-index: 1;
+
+    /* &.is-open {
+      transform: translate3d(0, 0, 0);
+    } */
+  }
 }
 
 .title {
@@ -113,6 +131,10 @@ export default {
     color: var(--primary);
     outline: none;
   }
+
+  @media (max-device-width: 1024px) {
+    padding: 20px 20px 0;
+  }
 }
 
 .add-sub-task-form {
@@ -120,6 +142,11 @@ export default {
   flex-direction: column;
   margin: 0 0 20px;
   width: 100%;
+
+  @media (max-device-width: 1024px) {
+    margin: 0 0 20px;
+    padding: 0 20px;
+  }
 }
 
 .input {

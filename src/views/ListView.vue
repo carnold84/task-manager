@@ -69,6 +69,17 @@ export default {
   flex-direction: column;
   overflow: auto;
   width: 30%;
+
+  @media (max-device-width: 1024px) {
+    background-color: #ffffff;
+    height: 100%;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
 }
 
 .container {
