@@ -66,6 +66,7 @@ export default {
   methods: {
     onDelete (evt) {
       this.$store.dispatch('removeTask', { id: this.task.id });
+      this.$router.push('/');
     },
     onEditTask (evt) {
       evt.preventDefault();
