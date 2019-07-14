@@ -1,14 +1,115 @@
-:root {
-    --primary: #1e70ce;
-    --secondary: #e98400;
-    
+.theme-light {
+  &:root {
+    --app-primary: #1e70ce;
+    --app-secondary: #e98400;
+
+    --app-theme1: #ffffff;
+    --app-theme2: #eeeeee;
+    --app-theme3: #dddddd;
+    --app-theme4: #cccccc;
+    --app-theme5: #bbbbbb;
+
+    --text-color1: #222222;
+    --text-color2: #444444;
+    --text-color3: #666666;
+    --text-color4: #888888;
+    --text-color-alt1: #ffffff;
+    --font-color-hover1: var(--app-secondary);
+
     --button-bg-color: #ffffff;
     --button-bg-color__HOVER: var(--button-bg-color);
     --button-border-color: #eeeeee;
     --button-border-color__HOVER: var(--button-border-color);
-    --button-primary-bg-color: var(--primary);
-    --button-primary-border-color: var(--primary);
-    --button-primary-bg-color__HOVER: var(--primary);
-    --button-primary-border-color__HOVER: var(--primary);
-    --loading-icon-color: var(--primary);
+    --button-primary-bg-color: var(--app-primary);
+    --button-primary-border-color: var(--app-primary);
+    --button-primary-bg-color__HOVER: var(--app-primary);
+    --button-primary-border-color__HOVER: var(--app-primary);
+    --loading-icon-color: var(--app-primary);
+
+    --header-bar-bg-color: var(--app-primary);
+    --header-bar-border-color: var(--app-primary);
+    --header-bar-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --header-bar-icon-color1: var(--text-color-alt1);
+    --header-bar-title-color1: var(--text-color-alt1);
+    --header-bar-menu-color: var(--text-color-alt1);
+
+    --list-view-bg-color: var(--app-theme1);
+    --list-view-border-color: var(--app-theme2);
+
+    --task-item-bg-color: var(--app-theme1);
+    --task-item-bg-color__HOVER: var(--app-theme2);
+    --task-item-border-color: var(--app-theme2);
+    --task-item-icon-fill: #999999;
+    --task-item-icon-fill__HOVER: var(--app-primary);
+    --task-item-text-color__COMPLETED: #666666;
+
+    --checkbox-bg-color: transparent;
+    --checkbox-bg-color__HOVER: transparent;
+    --checkbox-border-color: #999999;
+    --checkbox-border-color__HOVER: #666666;
+    --checkbox-bg-color__CHECKED: var(--app-primary);
+    --checkbox-border-color__CHECKED: var(--app-primary);
+
+    --text-field-bg-color: var(--app-theme1);
+    --text-field-border-color: var(--app-theme3);
+    --text-field-border-color__FOCUSED: var(--app-primary);
+    --text-field-placeholder-text-color: var(--text-color4);
+  }
+}
+
+.theme-dark {
+  &:root {
+    --app-primary: #1e70ce;
+    --app-secondary: #e98400;
+
+    --app-theme1: #222222;
+    --app-theme2: #282828;
+    --app-theme3: #2f2f2f;
+    --app-theme4: #333333;
+    --app-theme5: #3a3a3a;
+
+    --text-color1: #ffffff;
+    --text-color2: #eeeeee;
+    --text-color3: #dddddd;
+    --text-color4: #999999;
+    --font-color-hover1: var(--app-secondary);
+
+    --button-bg-color: #ffffff;
+    --button-bg-color__HOVER: var(--button-bg-color);
+    --button-border-color: #eeeeee;
+    --button-border-color__HOVER: var(--button-border-color);
+    --button-primary-bg-color: var(--app-primary);
+    --button-primary-border-color: var(--app-primary);
+    --button-primary-bg-color__HOVER: var(--app-primary);
+    --button-primary-border-color__HOVER: var(--app-primary);
+    --loading-icon-color: var(--app-primary);
+
+    --header-bar-bg-color: var(--app-theme3);
+    --header-bar-border-color: var(--app-theme3);
+    --header-bar-box-shadow: none;
+    --header-bar-icon-color1: var(--font-color-alt1);
+    --header-bar-title-color1: var(--font-color-alt1);
+
+    --list-view-bg-color: var(--app-theme2);
+    --list-view-border-color: var(--app-theme2);
+
+    --task-item-bg-color: var(--app-theme2);
+    --task-item-bg-color__HOVER: var(--app-theme3);
+    --task-item-border-color: var(--app-theme4);
+    --task-item-icon-fill: #444444;
+    --task-item-icon-fill__HOVER: var(--app-primary);
+    --task-item-text-color__COMPLETED: #666666;
+
+    --checkbox-bg-color: transparent;
+    --checkbox-bg-color__HOVER: transparent;
+    --checkbox-border-color: #3a3a3a;
+    --checkbox-border-color__HOVER: #555555;
+    --checkbox-bg-color__CHECKED: var(--app-primary);
+    --checkbox-border-color__CHECKED: var(--app-primary);
+
+    --text-field-bg-color: var(--app-theme1);
+    --text-field-border-color: var(--app-theme3);
+    --text-field-border-color__FOCUSED: var(--app-primary);
+    --text-field-placeholder-text-color: var(--text-color4);
+  }
 }

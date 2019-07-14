@@ -1,7 +1,16 @@
 <template>
   <div class="text-field">
-    <label class="label" :for="name">{{label}}</label>
-    <input class="input" :id="name" type="text" :name="name" :value="value">
+    <label
+      class="label"
+      :for="name"
+    >{{label}}</label>
+    <input
+      class="input"
+      :id="name"
+      type="text"
+      :name="name"
+      :value="value"
+    >
   </div>
 </template>
 
@@ -21,24 +30,27 @@ export default {
   flex-direction: column;
   display: flex;
 }
+
 .label {
   width: 100%;
   font-size: 14px;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--app-font-color3);
   margin: 0 0 5px;
 }
+
 .input {
   background-color: transparent;
   width: 100%;
   font-size: 26px;
   line-height: 26px;
-  color: rgba(0, 0, 0, 0.8);
+  color: var(--app-text-color1);
   padding: 3px 0 0;
   border: none;
-  border-bottom: #eeeeee solid 1px;
+  border-bottom: var(--app-theme2) solid 1px;
 }
+
 .input:focus {
   outline: none;
-  border-bottom: var(--primary) solid 1px;
+  border-bottom: var(--app-primary) solid 1px;
 }
 </style>

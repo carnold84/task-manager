@@ -64,14 +64,14 @@ export default {
 
 <style lang="scss" scoped>
 .list-view {
-  border-right: 1px solid #eeeeee;
+  background-color: var(--list-view-bg-color);
+  border-right: 1px solid var(--list-view-border-color);
   display: flex;
   flex-direction: column;
   overflow: auto;
   width: 30%;
 
   @media (max-device-width: 1024px) {
-    background-color: #ffffff;
     height: 100%;
     left: 0;
     padding: 0;
@@ -80,15 +80,6 @@ export default {
     width: 100%;
     z-index: 0;
   }
-}
-
-.container {
-  border-right: 1px solid #eeeeee;
-  display: flex;
-  flex-direction: column;
-  min-width: 400px;
-  overflow: auto;
-  width: 30%;
 }
 
 .content {
@@ -113,20 +104,21 @@ export default {
 }
 
 .input {
-  background-color: #ffffff;
-  border: 1px solid #eeeeee;
+  background-color: var(--text-field-bg-color);
+  border: 1px solid var(--text-field-border-color);
   border-radius: 3px;
-  color: var(--font-color-primary);
+  color: var(--text-field-text-color);
   height: 46px;
   padding: 0 14px;
 
   &:focus {
-    border: 1px solid #cccccc;
+    background-color: var(--text-field-bg-color__FOCUSED);
+    border: 1px solid var(--text-field-border-color__FOCUSED);
     outline: none;
   }
 
   &::placeholder {
-    color: var(--font-color-secondary);
+    color: var(--text-field-placeholder-text-color);
   }
 }
 </style>

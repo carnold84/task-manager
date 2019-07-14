@@ -47,7 +47,10 @@
             <v-icon>more_vert</v-icon>
           </v-btn>
 
-          <v-list dense>
+          <v-list
+            dense
+            :dark="theme === 'dark'"
+          >
             <v-list-tile @click="onClearAll">
               <v-list-tile-title>Clear All Tasks</v-list-tile-title>
             </v-list-tile>
@@ -61,6 +64,9 @@
                 type="file"
                 v-on:change="onFileSelect"
               />
+            </v-list-tile>
+            <v-list-tile @click="onToggleTheme">
+              <v-list-tile-title>{{theme === 'dark' ? 'Light Theme' : 'Dark Theme'}}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -91,6 +97,9 @@ export default {
     state () {
       return this.$store.getters.state;
     },
+    theme () {
+      return this.$store.getters.theme;
+    },
   },
   data () {
     return {
@@ -113,6 +122,9 @@ export default {
     onExportJSON () {
       this.downloadObjectAsJson(this.state, 'task-manager');
     },
+    onToggleTheme () {
+      this.$store.dispatch('setTheme', this.theme === 'dark' ? 'light' : 'dark');
+    },
     onFileSelect (evt) {
       const file = event.target.files[0];
 
@@ -124,11 +136,25 @@ export default {
       };
       reader.readAsText(file);
     },
+    updateTheme (theme) {
+      if (theme === 'light') {
+        document.querySelector('html').classList.remove('theme-dark');
+        document.querySelector('html').classList.add('theme-light');
+      } else if (theme === 'dark') {
+        document.querySelector('html').classList.remove('theme-light');
+        document.querySelector('html').classList.add('theme-dark');
+      }
+    },
   },
   mounted () {
     this.$store.dispatch('init');
 
     document.querySelector('title').innerHTML = this.appName;
+
+    this.updateTheme(this.theme);
+  },
+  updated () {
+    this.updateTheme(this.theme);
   },
 };
 </script>
@@ -137,8 +163,8 @@ export default {
 @import "styles/main.scss";
 
 .app-wrapper {
-  background-color: #ffffff;
-  color: var(--font-color-primary);
+  background-color: var(--app-theme1);
+  color: var(--text-color1);
   display: flex;
   flex-direction: column;
   height: 100%;

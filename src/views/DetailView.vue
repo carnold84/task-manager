@@ -103,7 +103,7 @@ export default {
   //transition: transform 3000ms ease;
 
   @media (max-device-width: 1024px) {
-    background-color: #ffffff;
+    background-color: var(--app-theme1);
     height: 100%;
     left: 0;
     padding: 0;
@@ -121,14 +121,14 @@ export default {
 
 .title {
   border: none;
-  color: var(--font-color-primary);
+  color: var(--text-color1);
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 20px;
   width: 100%;
 
   &:focus {
-    color: var(--primary);
+    color: var(--app-primary);
     outline: none;
   }
 
@@ -150,20 +150,21 @@ export default {
 }
 
 .input {
-  background-color: #ffffff;
-  border: 1px solid #eeeeee;
+  background-color: var(--text-field-bg-color);
+  border: 1px solid var(--text-field-border-color);
   border-radius: 3px;
-  color: var(--font-color-primary);
+  color: var(--text-field-text-color);
   height: 46px;
   padding: 0 14px;
 
   &:focus {
-    border: 1px solid #cccccc;
+    background-color: var(--text-field-bg-color__FOCUSED);
+    border: 1px solid var(--text-field-border-color__FOCUSED);
     outline: none;
   }
 
   &::placeholder {
-    color: var(--font-color-secondary);
+    color: var(--text-field-placeholder-text-color);
   }
 }
 

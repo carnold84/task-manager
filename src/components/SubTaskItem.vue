@@ -35,7 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .sub-task-item {
-  border-bottom: #eeeeee solid 1px;
+  border-bottom: var(--app-theme2) solid 1px;
   flex-direction: column;
   flex-shrink: 0;
   display: flex;
@@ -43,7 +43,7 @@ export default {
   width: 100%;
 
   &:first-child {
-    border-top: #eeeeee solid 1px;
+    border-top: var(--app-theme2) solid 1px;
   }
 }
 .content {
@@ -70,7 +70,7 @@ export default {
 h1 {
   font-size: 1.1em;
   font-weight: normal;
-  color: #ffffff;
+  color: var(--text-color1);
   margin: 0;
 }
 h2 {
