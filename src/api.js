@@ -39,8 +39,6 @@ const api = {
 
     tasks.push(...payload.tasks);
 
-    console.log(tasks);
-
     await setTasks(tasks);
 
     return { tasks };

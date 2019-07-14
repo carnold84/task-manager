@@ -1,18 +1,14 @@
 <template>
   <div
-    :class="{'task-item': true, 'is-checked': task.checked, 'is-hovered': isHovered, 'is-selected': isSelected}"
+    :class="{'task-item': true, 'is-checked': task.checked, 'is-selected': isSelected}"
     ref="taskRoot"
-    v-on:mouseout="onMouseOut"
-    v-on:mouseover="onMouseOver"
   >
     <div class="main">
       <div class="controls-left">
-        <span
-          class="checkbox"
-          v-on:click="onToggleCheck"
-        >
-          <span class="inner" />
-        </span>
+        <ui-checkbox
+          :onToggle="onToggleCheck"
+          :isChecked="task.checked"
+        />
       </div>
       <router-link
         class="text"
@@ -44,11 +40,13 @@
 import format from 'date-fns/format';
 
 import IconButton from '@/components/IconButton.vue';
+import UiCheckbox from '@/components/UiCheckbox';
 
 export default {
   name: 'TaskItem',
   components: {
     IconButton,
+    UiCheckbox,
   },
   computed: {
     created () {
@@ -58,15 +56,13 @@ export default {
       return `Modified: ${format(this.task.modified, 'DD/MM/YYYY')}`;
     },
   },
-  data () {
-    return {
-      isHovered: false,
-    };
-  },
   methods: {
     onDelete (evt) {
       this.$store.dispatch('removeTask', { id: this.task.id });
-      this.$router.push('/');
+
+      if (!this.task.parentId) {
+        this.$router.push('/');
+      }
     },
     onEditTask (evt) {
       evt.preventDefault();
@@ -74,12 +70,6 @@ export default {
       const value = target.value;
       this.$store.dispatch('editTask', { id: this.task.id, text: value });
       target.blur();
-    },
-    onMouseOver () {
-      this.isHovered = true;
-    },
-    onMouseOut () {
-      this.isHovered = false;
     },
     onToggleCheck () {
       this.$store.dispatch('editTask', { id: this.task.id, checked: !this.task.checked });
@@ -102,7 +92,8 @@ export default {
 
 <style lang="scss" scoped>
 .task-item {
-  border-bottom: #eeeeee solid 1px;
+  background-color: var(--task-item-bg-color);
+  border-bottom: var(--task-item-border-color) solid 1px;
   border-left: 3px solid transparent;
   flex-direction: column;
   flex-shrink: 0;
@@ -113,18 +104,22 @@ export default {
   width: 100%;
 
   &:first-child {
-    border-top: #eeeeee solid 1px;
+    border-top: var(--task-item-border-color) solid 1px;
   }
 
   &:hover {
-    background-color: #f9f9f9;
+    background-color: var(--task-item-bg-color__HOVER);
+
+    .controls-right {
+      visibility: visible;
+    }
   }
 
   &.is-selected {
-    border-left: 3px solid var(--primary);
+    border-left: 3px solid var(--app-primary);
 
     a {
-      color: var(--primary);
+      color: var(--app-primary);
     }
   }
 }
@@ -139,32 +134,9 @@ export default {
   width: 100%;
 }
 
-.checkbox {
-  align-items: center;
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  margin: 0;
-  width: 50px;
-
-  .inner {
-    border: 1px solid #cccccc;
-    border-radius: 9px;
-    height: 18px;
-    width: 18px;
-  }
-
-  .is-checked & {
-    .inner {
-      background-color: #1e70ce;
-      border: 1px solid #1e70ce;
-    }
-  }
-}
-
 .text {
   align-items: center;
-  color: #222222;
+  color: var(--text-color1);
   display: flex;
   flex-grow: 1;
   font-family: var(--font-family-primary);
@@ -176,7 +148,7 @@ export default {
   padding: 18px 10px;
 
   .is-checked & {
-    color: #888888;
+    color: var(--task-item-text-color__COMPLETED);
     text-decoration: line-through;
   }
 }
@@ -189,7 +161,7 @@ export default {
   align-items: center;
   background-color: transparent;
   border: none;
-  color: #222222;
+  color: var(--text-color1);
   display: flex;
   flex-grow: 1;
   font-family: var(--font-family-primary);
@@ -202,12 +174,12 @@ export default {
   width: 100%;
 
   .is-checked & {
-    color: #888888;
+    color: var(--task-item-text-color__COMPLETED);
     text-decoration: line-through;
   }
 
   &:focus {
-    color: #1e70ce;
+    color: var(--app-primary);
     outline: none;
   }
 }
@@ -215,12 +187,15 @@ export default {
 .controls-right {
   align-items: center;
   display: flex;
-  fill: #999999;
   height: 100%;
   visibility: hidden;
 
-  .is-hovered & {
-    visibility: visible;
+  .v-icon {
+    color: var(--task-item-icon-fill);
+
+    &:hover {
+      color: var(--task-item-icon-fill__HOVER);
+    }
   }
 
   & > * {

@@ -25,9 +25,9 @@ export default {
 
 .header-bar {
   align-items: center;
-  background-color: var(--primary);
-  border-bottom: var(--primary) solid 1px;
-  box-shadow: rgba(0, 0, 0, 0.5) 0 1px 2px;
+  background-color: var(--header-bar-bg-color);
+  border-bottom: var(--header-bar-border-color) solid 1px;
+  box-shadow: var(--header-bar-box-shadow);
   color: #ffffff;
   display: flex;
   flex-direction: row;
@@ -42,7 +42,13 @@ export default {
 }
 
 .logo {
+  color: var(--header-bar-title-color1);
+  fill: var(--header-bar-icon-color1);
   margin: 0 10px 0 0;
+
+  svg {
+    fill: inherit;
+  }
 }
 
 .content-left,
@@ -57,19 +63,8 @@ export default {
     font-weight: normal;
     margin: 0;
   }
-
-  a {
-    color: #ffffff;
-    fill: #ffffff;
-    margin: 1px 5px 0 0;
-  }
-
-  a:hover {
-    color: #e98400;
-    border-bottom: var(--secondary) dotted 1px;
-    margin: 1px 5px 0 0;
-  }
 }
+
 @include media("<=tablet") {
   .header-bar {
     padding: 0 20px;

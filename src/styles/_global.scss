@@ -1,4 +1,6 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
@@ -7,49 +9,48 @@ html {
 }
 
 body {
-    font-family: var(--font-family-primary);
-    font-weight: normal;
-    font-style: normal;
-    padding: 0;
-    margin: 0;
+  font-family: var(--font-family-primary);
+  font-weight: normal;
+  font-style: normal;
+  padding: 0;
+  margin: 0;
+}
+a,
+a:link,
+a:visited {
+  color: var(--app-primary);
+  text-decoration: none;
+  font-weight: normal;
+  font-style: normal;
+}
+a:hover {
+  color: var(--secondary);
+}
+button {
+  font-family: var(--font-family-primary);
+}
+.anim-section {
+  opacity: 0;
+  transform: translate3d(0, 50px, 0);
+  transition: transform 350ms ease-out, opacity 350ms ease-out;
+}
+.show .anim-section {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+input {
+  font-family: var(--font-family-primary);
+}
+.form-buttons {
+  width: 100%;
+  justify-content: flex-end;
+  display: flex;
+
+  > * {
+    margin: 0 10px 0 0;
+
+    &:last-child {
+      margin: 0;
+    }
   }
-  a,
-  a:link,
-  a:visited {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: normal;
-    font-style: normal;
-  }
-  a:hover {
-    color: var(--secondary);
-  }
-  button {
-    font-family: var(--font-family-primary);
-  }
-  .anim-section {
-    opacity: 0;
-    transform: translate3d(0, 50px, 0);
-    transition: transform 350ms ease-out, opacity 350ms ease-out;
-  }
-  .show .anim-section {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-  input {
-    font-family: var(--font-family-primary);
-  }
-  .form-buttons {
-      width: 100%;
-      justify-content: flex-end;
-      display: flex;
-  
-      > * {
-          margin: 0 10px 0 0;
-  
-          &:last-child {
-              margin: 0;
-          }
-      }
-  }
-  
+}

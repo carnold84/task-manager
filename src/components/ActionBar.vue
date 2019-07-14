@@ -29,7 +29,7 @@ export default {
   display: flex;
 
   &.has-border {
-    border-bottom: #dddddd solid 1px;
+    border-bottom: var(--app-theme4) solid 1px;
   }
 }
 h1 {

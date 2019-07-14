@@ -59,7 +59,7 @@ export default {
   padding: 0 12px;
 
   &:hover {
-    fill: var(--primary);
+    fill: var(--app-primary);
   }
 }
 </style>

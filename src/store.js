@@ -9,6 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     tasks: [],
+    theme: 'dark',
   },
   mutations: {
     addData: (state, payload) => {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
         return task.id !== payload.id && task.parentId !== payload.id;
       });
     },
+    setTheme (state, payload) {
+      state.theme = payload;
+    },
   },
   actions: {
     async addData (context, payload) {
@@ -63,6 +67,9 @@ export default new Vuex.Store({
       const tasks = await api.removeAllTasks();
       context.commit('removeAllTasks', { tasks });
     },
+    async setTheme (context, payload) {
+      context.commit('setTheme', payload);
+    },
   },
   getters: {
     state: state => {
@@ -76,6 +83,9 @@ export default new Vuex.Store({
     },
     tasks: state => {
       return state.tasks.filter(task => task.parentId === undefined);
+    },
+    theme: state => {
+      return state.theme;
     },
   },
 });

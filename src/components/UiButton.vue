@@ -70,7 +70,7 @@ export default {
   display: flex;
 
   &:hover {
-    color: var(--font-color-primary);
+    color: var(--text-color1);
     background-color: var(--button-bg-color__HOVER);
     border: var(--button-border-color__HOVER) solid 1px;
     box-shadow: rgba(0, 0, 0, 0.25) 0 1px 3px;
