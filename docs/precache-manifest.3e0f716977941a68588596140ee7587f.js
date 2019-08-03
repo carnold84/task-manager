@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "/task-manager/js/app.b96d9ffe.js"
   },
   {
-    "revision": "7e2e1a45c4e6cd306b0f332ad50095ca",
+    "revision": "6b5581d9e3155aee4819fa73c94a6800",
     "url": "/task-manager/index.html"
   },
   {
