@@ -33,6 +33,31 @@ const setTasks = async tasks => {
   return success;
 };
 
+const setTheme = async theme => {
+  let success = true;
+
+  await localforage.setItem('theme', theme, (err) => {
+    if (err) {
+      success = false;
+    }
+  });
+
+  return success;
+};
+
+const getTheme = async () => {
+  let theme = null;
+
+  await localforage.getItem('theme', (err, value) => {
+    if (err) {
+      console.error(err);
+    }
+    theme = value;
+  });
+
+  return theme;
+};
+
 const api = {
   async addData (payload) {
     let tasks = await getTasks();
@@ -80,6 +105,7 @@ const api = {
   },
   async init () {
     let tasks = await getTasks();
+    let theme = await getTheme();
 
     if (tasks === null) {
       tasks = [];
@@ -88,6 +114,7 @@ const api = {
 
     return {
       tasks,
+      theme,
     };
   },
   async removeAllTasks () {
@@ -105,6 +132,11 @@ const api = {
     await setTasks(newTasks);
 
     return payload.id;
+  },
+  async setTheme (payload) {
+    await setTheme(payload);
+
+    return payload;
   },
 };
 
