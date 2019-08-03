@@ -29,6 +29,7 @@ export default new Vuex.Store({
     },
     init (state, payload) {
       state.tasks = payload.tasks;
+      state.theme = payload.theme;
     },
     removeAllTasks (state, payload) {
       state.tasks = payload.tasks;
@@ -68,6 +69,7 @@ export default new Vuex.Store({
       context.commit('removeAllTasks', { tasks });
     },
     async setTheme (context, payload) {
+      await api.setTheme(payload);
       context.commit('setTheme', payload);
     },
   },

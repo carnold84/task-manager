@@ -10,11 +10,11 @@ import Vuetify, {
   VMenu,
 } from 'vuetify/lib';
 import { Ripple } from 'vuetify/lib/directives';
-import 'vuetify/dist/vuetify.min.css';
 
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import './registerServiceWorker'
 
 Vue.use(vClickOutside);
 Vue.use(Vuetify, {

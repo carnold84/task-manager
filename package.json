@@ -3,36 +3,47 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "serve docs",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "capacitor-copy": "vue-cli-service capacitor-copy",
+    "capacitor-init": "vue-cli-service capacitor-init",
+    "capacitor-open": "vue-cli-service capacitor-open",
+    "capacitor-update": "vue-cli-service capacitor-update",
+    "dev": "vue-cli-service serve"
   },
   "dependencies": {
+    "@capacitor/cli": "^1.0.0-alpha.38",
+    "@capacitor/core": "^1.0.0-alpha.38",
+    "date-fns": "^1.30.1",
+    "include-media": "^1.4.9",
+    "localforage": "^1.7.3",
+    "lodash": "^4.17.13",
+    "register-service-worker": "^1.6.2",
+    "serve": "^11.1.0",
+    "uuid": "^3.3.2",
+    "v-click-outside": "^2.1.3",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
+    "vuetify": "^1.5.16",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.3.0",
     "@vue/cli-plugin-eslint": "^3.3.0",
+    "@vue/cli-plugin-pwa": "^3.9.0",
     "@vue/cli-service": "^3.3.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "css-loader": "^3.0.0",
-    "date-fns": "^1.30.1",
     "eslint": "^6.0.1",
     "eslint-plugin-vue": "^5.0.0",
-    "include-media": "^1.4.9",
-    "localforage": "^1.7.3",
-    "lodash": "^4.17.13",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
-    "uuid": "^3.3.2",
-    "v-click-outside": "^2.1.3",
-    "vue-template-compiler": "^2.5.21",
-    "vuetify": "^1.5.16"
+    "vue-cli-plugin-pwa": "^1.0.0-alpha.1",
+    "vue-template-compiler": "^2.5.21"
   }
 }
