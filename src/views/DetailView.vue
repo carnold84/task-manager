@@ -1,50 +1,17 @@
 <template>
-  <div
-    :class="{'detail-view': true, 'is-open': isOpen}"
-    v-if="task"
-  >
-    <form
-      class="edit-task-form"
-      v-on:submit.prevent="onEditTask"
-    >
-      <input
-        class="title"
-        id="edit-task"
-        name="edit-task"
-        :value="task.text"
-      />
+  <div :class="{'detail-view': true, 'is-open': isOpen}" v-if="task">
+    <form class="edit-task-form" v-on:submit.prevent="onEditTask">
+      <input class="title" id="edit-task" name="edit-task" :value="task.text" />
     </form>
-    <form
-      class="add-sub-task-form"
-      v-on:submit.prevent="onAddSubTask"
-    >
-      <input
-        class="input"
-        id="add-sub-task"
-        name="add-sub-task"
-        :placeholder="placeholder"
-      />
+    <form class="add-sub-task-form" v-on:submit.prevent="onAddSubTask">
+      <input class="input" id="add-sub-task" name="add-sub-task" :placeholder="placeholder" />
     </form>
-    <div
-      class="empty"
-      v-if="subTasks.length === 0"
-    >No Tasks</div>
-    <div
-      class="content"
-      v-else
-    >
-      <task-item
-        v-for="task in subTasks"
-        :has-border="true"
-        :key="task.id"
-        :task="task"
-      />
+    <div class="empty" v-if="subTasks.length === 0">No Tasks</div>
+    <div class="content" v-else>
+      <task-item v-for="task in subTasks" :has-border="true" :key="task.id" :task="task" />
     </div>
   </div>
-  <div
-    class="empty"
-    v-else
-  >No Tasks</div>
+  <div class="empty" v-else>No Tasks</div>
 </template>
 
 <script>
@@ -120,6 +87,7 @@ export default {
 }
 
 .title {
+  background-color: transparent;
   border: none;
   color: var(--text-color1);
   font-size: 24px;
