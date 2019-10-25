@@ -33,22 +33,12 @@ export default {
   flex-direction: row;
   flex-shrink: 0;
   font-size: 1em;
-  height: 60px;
+  height: 46px;
   justify-content: space-between;
   margin: 0;
-  padding: 0 20px;
+  padding: 0 0 0 15px;
   width: 100%;
   z-index: 10;
-}
-
-.logo {
-  color: var(--header-bar-title-color1);
-  fill: var(--header-bar-icon-color1);
-  margin: 0 10px 0 0;
-
-  svg {
-    fill: inherit;
-  }
 }
 
 .content-left,

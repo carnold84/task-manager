@@ -28,8 +28,13 @@ export default new Vuex.Store({
       state.tasks.splice(idx, 1, task);
     },
     init (state, payload) {
-      state.tasks = payload.tasks;
-      state.theme = payload.theme;
+      const { tasks, theme } = payload;
+      if (tasks) {
+        state.tasks = payload.tasks;
+      }
+      if (theme) {
+        state.theme = payload.theme;
+      }
     },
     removeAllTasks (state, payload) {
       state.tasks = payload.tasks;

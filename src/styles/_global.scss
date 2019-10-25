@@ -10,8 +10,8 @@ html {
 
 body {
   font-family: var(--font-family-primary);
-  font-weight: normal;
   font-style: normal;
+  font-weight: normal;
   padding: 0;
   margin: 0;
 }
@@ -44,8 +44,31 @@ button {
   transform: translate3d(0, 0, 0);
 }
 
-input {
+.input {
+  background-color: var(--text-field-bg-color);
+  border: 1px solid var(--text-field-border-color);
+  border-radius: 3px;
+  color: var(--text-field-text-color);
   font-family: var(--font-family-primary);
+  height: 34px;
+  padding: 0 10px;
+
+  &:focus {
+    background-color: var(--text-field-bg-color__FOCUSED);
+    border: 1px solid var(--text-field-border-color__FOCUSED);
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var(--text-field-placeholder-text-color);
+  }
+}
+
+.empty {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
 }
 
 .form-buttons {

@@ -117,32 +117,6 @@ export default {
   }
 }
 
-.input {
-  background-color: var(--text-field-bg-color);
-  border: 1px solid var(--text-field-border-color);
-  border-radius: 3px;
-  color: var(--text-field-text-color);
-  height: 46px;
-  padding: 0 14px;
-
-  &:focus {
-    background-color: var(--text-field-bg-color__FOCUSED);
-    border: 1px solid var(--text-field-border-color__FOCUSED);
-    outline: none;
-  }
-
-  &::placeholder {
-    color: var(--text-field-placeholder-text-color);
-  }
-}
-
-.empty {
-  align-items: center;
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
-}
-
 .container {
   display: flex;
   flex-grow: 1;

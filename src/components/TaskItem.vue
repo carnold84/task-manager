@@ -5,27 +5,11 @@
   >
     <div class="main">
       <div class="controls-left">
-        <ui-checkbox
-          :onToggle="onToggleCheck"
-          :isChecked="task.checked"
-        />
+        <ui-checkbox :onToggle="onToggleCheck" :isChecked="task.checked" />
       </div>
-      <router-link
-        class="text"
-        :to="link"
-        v-if="link"
-      >{{task.text}}</router-link>
-      <form
-        class="edit-task-form"
-        v-else
-        v-on:blur="onEditTask"
-        v-on:submit.prevent="onEditTask"
-      >
-        <input
-          class="edit-task"
-          name="edit-task"
-          :value="task.text"
-        />
+      <router-link class="text" :to="link" v-if="link">{{task.text}}</router-link>
+      <form class="edit-task-form" v-else v-on:blur="onEditTask" v-on:submit.prevent="onEditTask">
+        <input class="text" name="edit-task" :value="task.text" />
       </form>
       <div class="controls-right">
         <icon-button :onClick="onDelete">
@@ -72,7 +56,10 @@ export default {
       target.blur();
     },
     onToggleCheck () {
-      this.$store.dispatch('editTask', { id: this.task.id, checked: !this.task.checked });
+      this.$store.dispatch('editTask', {
+        id: this.task.id,
+        checked: !this.task.checked,
+      });
     },
   },
   props: {
@@ -136,6 +123,8 @@ export default {
 
 .text {
   align-items: center;
+  background-color: transparent;
+  border: none;
   color: var(--text-color1);
   display: flex;
   flex-grow: 1;
@@ -145,11 +134,17 @@ export default {
   height: 100%;
   margin: 0;
   line-height: 20px;
-  padding: 18px 10px;
+  padding: 12px 10px 12px 0;
+  width: 100%;
 
   .is-checked & {
     color: var(--task-item-text-color__COMPLETED);
     text-decoration: line-through;
+  }
+
+  &:focus {
+    color: var(--app-primary);
+    outline: none;
   }
 }
 
@@ -170,7 +165,7 @@ export default {
   height: 100%;
   margin: 0;
   line-height: 20px;
-  padding: 18px 10px;
+  padding: 12px 10px 12px 0;
   width: 100%;
 
   .is-checked & {

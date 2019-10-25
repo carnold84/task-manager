@@ -1,48 +1,25 @@
 <template>
-  <div
-    class="app-wrapper"
-    data-app
-  >
+  <div class="app-wrapper" data-app>
     <header-bar>
       <template slot="content-left">
-        <span
-          class="icon"
-          v-if="task"
-        >
+        <span class="icon" v-if="task">
           <router-link to="/">
             <arrow-back-icon />
           </router-link>
           {{task.title}}
         </span>
-        <div
-          class="logo"
-          else
-        >
-          <img
-            height="24"
-            src="img/icons/icon-32x32.png"
-          />
+        <div class="logo" else>
+          <img height="24" src="img/icons/icon-32x32.png" />
           {{ appName }}
         </div>
       </template>
       <template slot="content-right">
-        <v-menu
-          bottom
-          left
-          offset-y
-        >
-          <v-btn
-            slot="activator"
-            dark
-            icon
-          >
-            <v-icon>more_vert</v-icon>
+        <v-menu bottom left offset-y>
+          <v-btn slot="activator" dark icon>
+            <v-icon small>more_vert</v-icon>
           </v-btn>
 
-          <v-list
-            dense
-            :dark="theme === 'dark'"
-          >
+          <v-list dense :dark="theme === 'dark'">
             <v-list-tile @click="onClearAll">
               <v-list-tile-title>Clear All Tasks</v-list-tile-title>
             </v-list-tile>
@@ -51,11 +28,7 @@
             </v-list-tile>
             <v-list-tile>
               <v-list-tile-title>Import JSON</v-list-tile-title>
-              <input
-                class="file-input"
-                type="file"
-                v-on:change="onFileSelect"
-              />
+              <input class="file-input" type="file" v-on:change="onFileSelect" />
             </v-list-tile>
             <v-list-tile @click="onToggleTheme">
               <v-list-tile-title>{{theme === 'dark' ? 'Light Theme' : 'Dark Theme'}}</v-list-tile-title>
@@ -100,7 +73,9 @@ export default {
   },
   methods: {
     downloadObjectAsJson (exportObj, exportName) {
-      var dataStr = `data:text/json;charset=utf-8, ${encodeURIComponent(JSON.stringify(exportObj))}`;
+      var dataStr = `data:text/json;charset=utf-8, ${encodeURIComponent(
+        JSON.stringify(exportObj)
+      )}`;
       var downloadAnchorNode = document.createElement('a');
       downloadAnchorNode.setAttribute('href', dataStr);
       downloadAnchorNode.setAttribute('download', exportName + '.json');
@@ -115,7 +90,10 @@ export default {
       this.downloadObjectAsJson(this.state, 'task-manager');
     },
     onToggleTheme () {
-      this.$store.dispatch('setTheme', this.theme === 'dark' ? 'light' : 'dark');
+      this.$store.dispatch(
+        'setTheme',
+        this.theme === 'dark' ? 'light' : 'dark'
+      );
     },
     onFileSelect (evt) {
       const file = event.target.files[0];
@@ -161,7 +139,7 @@ export default {
   flex-direction: column;
   height: 100%;
   font-family: var(--font-family-primary);
-  font-size: 15px;
+  font-size: 14px;
   overflow: hidden;
   position: absolute;
   width: 100%;
