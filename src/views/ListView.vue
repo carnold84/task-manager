@@ -1,24 +1,10 @@
 <template>
   <div class="list-view">
-    <form
-      class="add-task-form"
-      v-on:submit.prevent="onAddTask"
-    >
-      <input
-        class="input"
-        id="add-task"
-        name="add-task"
-        placeholder="Add Task"
-      />
+    <form class="add-task-form" v-on:submit.prevent="onAddTask">
+      <input class="input" id="add-task" name="add-task" placeholder="Add Task" />
     </form>
-    <div
-      class="empty"
-      v-if="tasks.length === 0"
-    >No Tasks</div>
-    <div
-      class="content"
-      v-else
-    >
+    <div class="empty" v-if="tasks.length === 0">No Tasks</div>
+    <div class="content" v-else>
       <task-item
         v-for="task in tasks"
         :has-border="true"
@@ -89,36 +75,10 @@ export default {
   overflow: auto;
 }
 
-.empty {
-  align-items: center;
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
-}
-
 .add-task-form {
   display: flex;
   flex-direction: column;
   padding: 20px;
   width: 100%;
-}
-
-.input {
-  background-color: var(--text-field-bg-color);
-  border: 1px solid var(--text-field-border-color);
-  border-radius: 3px;
-  color: var(--text-field-text-color);
-  height: 46px;
-  padding: 0 14px;
-
-  &:focus {
-    background-color: var(--text-field-bg-color__FOCUSED);
-    border: 1px solid var(--text-field-border-color__FOCUSED);
-    outline: none;
-  }
-
-  &::placeholder {
-    color: var(--text-field-placeholder-text-color);
-  }
 }
 </style>

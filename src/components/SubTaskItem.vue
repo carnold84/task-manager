@@ -1,8 +1,7 @@
 <template>
   <div class="sub-task-item">
     <div class="content">
-      <div class="controls">
-      </div>
+      <div class="controls"></div>
       <p class="title">{{subTask.text}}</p>
       <div class="controls">
         <UiButton :onClick="onDelete">Remove</UiButton>
@@ -46,6 +45,7 @@ export default {
     border-top: var(--app-theme2) solid 1px;
   }
 }
+
 .content {
   align-items: center;
   flex-direction: row;
@@ -56,10 +56,12 @@ export default {
   margin: 0;
   width: 100%;
 }
+
 .title {
   flex-grow: 1;
   padding: 20px;
 }
+
 .controls {
   display: flex;
 
@@ -67,12 +69,14 @@ export default {
     margin: 0 0 0 10px;
   }
 }
+
 h1 {
   font-size: 1.1em;
   font-weight: normal;
   color: var(--text-color1);
   margin: 0;
 }
+
 h2 {
   font-size: 1.2em;
   font-weight: normal;

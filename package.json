@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "serve docs",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
     "capacitor-copy": "vue-cli-service capacitor-copy",
     "capacitor-init": "vue-cli-service capacitor-init",
     "capacitor-open": "vue-cli-service capacitor-open",
     "capacitor-update": "vue-cli-service capacitor-update",
-    "dev": "vue-cli-service serve"
+    "dev": "vue-cli-service serve",
+    "lint": "vue-cli-service lint",
+    "serve": "serve docs"
   },
   "dependencies": {
     "@capacitor/cli": "^1.0.0-alpha.38",
