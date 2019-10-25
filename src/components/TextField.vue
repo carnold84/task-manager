@@ -1,16 +1,7 @@
 <template>
   <div class="text-field">
-    <label
-      class="label"
-      :for="name"
-    >{{label}}</label>
-    <input
-      class="input"
-      :id="name"
-      type="text"
-      :name="name"
-      :value="value"
-    >
+    <label class="label" :for="name">{{label}}</label>
+    <input class="input" :id="name" type="text" :name="name" :value="value" />
   </div>
 </template>
 
